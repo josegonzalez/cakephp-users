@@ -65,7 +65,7 @@ class CrudListener extends BaseListener
             throw new MissingBehaviorException('Muffin/Tokenize.Tokenize');
         }
 
-        $token = $table->tokenize($event->getSubject()->entity->id);
+        $token = $table->tokenize($event->getSubject()->entity->id)->token;
         $this->push(['\App\Job\MailerJob', 'execute'], [
             'action' => 'forgotPassword',
             'mailer' => 'Users.User',
