@@ -6,7 +6,7 @@
         "php": ">=5.5.9",
         "admad/cakephp-social-auth": "0.3.*",
         "cakephp/cakephp": ">=3.5.0 <4.0.0",
-        "josegonzalez/cakephp-upload": "3.*",
+        "josegonzalez/cakephp-upload": "4.*",
         "friendsofcake/crud": "5.*",
         "friendsofcake/crud-users": "0.*",
         "muffin/tokenize": "^1.0"
