@@ -9,7 +9,7 @@
         "josegonzalez/cakephp-upload": "4.*",
         "friendsofcake/crud": "5.*",
         "friendsofcake/crud-users": "0.*",
-        "muffin/tokenize": "^1.0"
+        "muffin/tokenize": "^1.0@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "*"
