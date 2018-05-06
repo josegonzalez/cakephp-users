@@ -28,8 +28,8 @@ class CrudListener extends BaseListener
         parent::__construct($Controller, $config);
 
         $authFields = $this->getFormAuthFields();
-        $this->config('usernameField', $authFields['username']);
-        $this->config('passwordField', $authFields['password']);
+        $this->setConfig('usernameField', $authFields['username']);
+        $this->setConfig('passwordField', $authFields['password']);
     }
 
     /**
@@ -70,7 +70,7 @@ class CrudListener extends BaseListener
             'action' => 'forgotPassword',
             'mailer' => 'Users.User',
             'data' => [
-                $this->config('usernameField') => $event->getSubject()->entity->email,
+                $this->getConfig('usernameField') => $event->getSubject()->entity->email,
                 'token' => $token,
             ]
         ]);
@@ -134,15 +134,15 @@ class CrudListener extends BaseListener
         $event->getSubject()->args = [$userId];
 
         $this->_action()->saveOptions(['validate' => 'account']);
-        $this->_action()->config('scaffold.page_title', 'Profile');
-        $this->_action()->config('scaffold.form_submit_extra_buttons', false);
-        $this->_action()->config('scaffold.viewblocks', [
+        $this->_action()->setConfig('scaffold.page_title', 'Profile');
+        $this->_action()->setConfig('scaffold.form_submit_extra_buttons', false);
+        $this->_action()->setConfig('scaffold.viewblocks', [
             'actions' => ['' => 'text'],
         ]);
 
         $scaffoldFields = [
-            $this->config('usernameField'),
-            $this->config('passwordField') => [
+            $this->getConfig('usernameField'),
+            $this->getConfig('passwordField') => [
                 'required' => false,
             ],
             'confirm_password' => [
@@ -153,7 +153,7 @@ class CrudListener extends BaseListener
             $scaffoldFields['avatar'] = ['type' => 'file'];
         }
 
-        $this->_action()->config('scaffold.fields', $scaffoldFields);
+        $this->_action()->setConfig('scaffold.fields', $scaffoldFields);
     }
 
     /**
@@ -169,15 +169,15 @@ class CrudListener extends BaseListener
             'forgotPassword' => null,
         ]);
         $this->_controller()->viewBuilder()->setTemplate('add');
-        $this->_action()->config('scaffold.page_title', 'Forgot Password?');
-        $this->_action()->config('scaffold.fields', [
-            $this->config('usernameField'),
+        $this->_action()->setConfig('scaffold.page_title', 'Forgot Password?');
+        $this->_action()->setConfig('scaffold.fields', [
+            $this->getConfig('usernameField'),
         ]);
-        $this->_action()->config('scaffold.viewblocks', [
+        $this->_action()->setConfig('scaffold.viewblocks', [
             'actions' => ['' => 'text'],
         ]);
-        $this->_action()->config('scaffold.form_submit_extra_buttons', false);
-        $this->_action()->config('scaffold.form_submit_button_text', 'Send Password Reset Email');
+        $this->_action()->setConfig('scaffold.form_submit_extra_buttons', false);
+        $this->_action()->setConfig('scaffold.form_submit_button_text', 'Send Password Reset Email');
     }
 
     /**
@@ -193,16 +193,16 @@ class CrudListener extends BaseListener
             'login' => null,
         ]);
         $this->_controller()->viewBuilder()->setTemplate('add');
-        $this->_action()->config('scaffold.page_title', 'Login');
-        $this->_action()->config('scaffold.fields', [
-            $this->config('usernameField'),
-            $this->config('passwordField'),
+        $this->_action()->setConfig('scaffold.page_title', 'Login');
+        $this->_action()->setConfig('scaffold.fields', [
+            $this->getConfig('usernameField'),
+            $this->getConfig('passwordField'),
         ]);
-        $this->_action()->config('scaffold.viewblocks', [
+        $this->_action()->setConfig('scaffold.viewblocks', [
             'actions' => ['' => 'text'],
         ]);
-        $this->_action()->config('scaffold.form_submit_extra_buttons', false);
-        $this->_action()->config('scaffold.form_submit_button_text', 'Login');
+        $this->_action()->setConfig('scaffold.form_submit_extra_buttons', false);
+        $this->_action()->setConfig('scaffold.form_submit_button_text', 'Login');
     }
 
     /**
@@ -218,15 +218,15 @@ class CrudListener extends BaseListener
             'resetPassword' => null,
         ]);
         $this->_controller()->viewBuilder()->setTemplate('add');
-        $this->_action()->config('scaffold.page_title', 'Enter a new password to reset your account');
-        $this->_action()->config('scaffold.fields', [
-            $this->config('passwordField'),
+        $this->_action()->setConfig('scaffold.page_title', 'Enter a new password to reset your account');
+        $this->_action()->setConfig('scaffold.fields', [
+            $this->getConfig('passwordField'),
         ]);
-        $this->_action()->config('scaffold.viewblocks', [
+        $this->_action()->setConfig('scaffold.viewblocks', [
             'actions' => ['' => 'text'],
         ]);
-        $this->_action()->config('scaffold.form_submit_extra_buttons', false);
-        $this->_action()->config('scaffold.form_submit_button_text', 'Reset Password');
+        $this->_action()->setConfig('scaffold.form_submit_extra_buttons', false);
+        $this->_action()->setConfig('scaffold.form_submit_button_text', 'Reset Password');
     }
 
     /**
@@ -237,7 +237,7 @@ class CrudListener extends BaseListener
      */
     public function beforeRender(Event $event)
     {
-        if ($this->_request()->action === 'edit') {
+        if ($this->_request()->getParam('action') === 'edit') {
             $this->beforeRenderEdit($event);
 
             return;
@@ -252,7 +252,7 @@ class CrudListener extends BaseListener
      */
     public function beforeRenderEdit(Event $event)
     {
-        $event->getSubject()->entity->unsetProperty($this->config('passwordField'));
+        $event->getSubject()->entity->unsetProperty($this->getConfig('passwordField'));
     }
 
     /**
@@ -263,7 +263,7 @@ class CrudListener extends BaseListener
      */
     public function beforeSave(Event $event)
     {
-        if ($this->_request()->action === 'edit') {
+        if ($this->_request()->getParam('action') === 'edit') {
             $this->beforeSaveEdit($event);
 
             return;
@@ -279,8 +279,8 @@ class CrudListener extends BaseListener
     public function beforeSaveEdit(Event $event)
     {
         if ($event->getSubject()->entity->confirm_password === '') {
-            $event->getSubject()->entity->unsetProperty($this->config('passwordField'));
-            $event->getSubject()->entity->dirty($this->config('passwordField'), false);
+            $event->getSubject()->entity->unsetProperty($this->getConfig('passwordField'));
+            $event->getSubject()->entity->dirty($this->getConfig('passwordField'), false);
         }
     }
 
@@ -296,6 +296,6 @@ class CrudListener extends BaseListener
         }
 
         $authenticate = $this->_controller()->Auth->getAuthenticate('Form');
-        return $authenticate->config('fields');
+        return $authenticate->getConfig('fields');
     }
 }

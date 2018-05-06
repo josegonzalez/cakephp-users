@@ -64,7 +64,7 @@ class ControllerListener implements EventListenerInterface
             $Controller->Auth->allow(['forgotPassword', 'resetPassword', 'verify']);
         }
 
-        $Controller->Crud->action()->config('scaffold.sidebar_navigation', false);
-        $Controller->Crud->action()->config('scaffold.site_title', Configure::read('App.name'));
+        $Controller->Crud->action()->setConfig('scaffold.sidebar_navigation', false);
+        $Controller->Crud->action()->setConfig('scaffold.site_title', Configure::read('App.name'));
     }
 }

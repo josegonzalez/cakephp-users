@@ -59,7 +59,7 @@ class UsersController extends AppController
         }
 
         $this->_setModelClass($userModel);
-        $this->getEventManager()->attach(new ControllerListener);
+        $this->getEventManager()->on(new ControllerListener);
         $this->Crud->addListener('Users', CrudListener::class);
     }
 }
