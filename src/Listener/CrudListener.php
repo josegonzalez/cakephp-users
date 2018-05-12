@@ -280,7 +280,7 @@ class CrudListener extends BaseListener
     {
         if ($event->getSubject()->entity->confirm_password === '') {
             $event->getSubject()->entity->unsetProperty($this->getConfig('passwordField'));
-            $event->getSubject()->entity->dirty($this->getConfig('passwordField'), false);
+            $event->getSubject()->entity->setDirty($this->getConfig('passwordField'), false);
         }
     }
 
