@@ -28,7 +28,12 @@ return [
             'action' => 'login'
         ],
         'loginRedirect' => null,
-        'logoutRedirect' => null,
+        'logoutRedirect' => [
+            'plugin' => 'Users',
+            'prefix' => false,
+            'controller' => 'Users',
+            'action' => 'login',
+        ],
         // Social configuration
         'social' => [
         ],
