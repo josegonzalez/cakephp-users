@@ -10,6 +10,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Users\Model\Table\Traits\AccountValidationTrait;
+use Users\Model\Table\Traits\AuthFinderTrait;
 use Users\Model\Table\Traits\SocialAuthTrait;
 use Users\Model\Table\Traits\TokenFinderTrait;
 
@@ -29,6 +30,7 @@ use Users\Model\Table\Traits\TokenFinderTrait;
 class UsersTable extends Table
 {
     use AccountValidationTrait;
+    use AuthFinderTrait;
     use SocialAuthTrait;
     use TokenFinderTrait;
 

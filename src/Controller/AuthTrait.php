@@ -23,20 +23,16 @@ trait AuthTrait
     protected function loadAuthComponent()
     {
         $config = Configure::read('Users');
-        $scope = [
-            'Users.active' => true,
-        ];
-        if (!empty($config['requireEmailAuthentication'])) {
-            $scope['Users.email_authenticated'] = true;
-        }
 
         $this->loadComponent('Auth', [
             'authorize' => [
                 'Controller'
             ],
             'flash' => [
-                'element' => 'flash/error',
                 'key' => 'auth',
+                'params' => [
+                    'class' => 'alert alert-danger',
+                ],
             ],
             'loginAction' => $config['loginAction'],
             'loginRedirect' => $config['loginRedirect'],
@@ -45,7 +41,9 @@ trait AuthTrait
                 'all' => [
                     'fields' => $config['fields'],
                     'userModel' => $config['userModel'],
-                    'scope' => $scope,
+                    'finder' => [
+                        'auth' => $config['conditions'],
+                    ],
                 ],
                 'Form',
             ]
