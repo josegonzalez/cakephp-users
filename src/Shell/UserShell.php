@@ -5,6 +5,7 @@ use Cake\Console\Shell;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
+use LogicException;
 
 /**
  * User shell command.

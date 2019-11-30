@@ -5,6 +5,7 @@ use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\I18n\Time;
 use Cake\ORM\TableRegistry;
+use LogicException;
 
 /**
  * Enable Crud to catch MissingActionException and attempt to generate response

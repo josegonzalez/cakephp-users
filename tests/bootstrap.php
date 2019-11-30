@@ -1,4 +1,6 @@
 <?php
+use Exception;
+
 /**
  * Test suite bootstrap for Users.
  *

@@ -2,6 +2,7 @@
 use ADmad\SocialAuth\Middleware\SocialAuthMiddleware;
 use Cake\Core\Configure;
 use Cake\Event\EventManager;
+use LogicException;
 
 /*
  * Read configuration file and inject configuration into various
