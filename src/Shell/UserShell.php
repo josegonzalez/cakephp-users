@@ -20,6 +20,10 @@ class UserShell extends Shell
     public function main()
     {
         $config = Configure::read('Users', []);
+        if (empty($config['fields']['username']) || empty($config['fields']['password'])) {
+            throw new LogicException('Configure value Users.fields is invalid');
+        }
+
         $data = [];
         $fields = [
             $config['fields']['username'],
