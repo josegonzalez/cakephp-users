@@ -22,7 +22,7 @@ trait AuthTrait
      */
     protected function loadAuthComponent()
     {
-        $config = Configure::read('Users');
+        $config = Configure::read('Users', []);
 
         $this->loadComponent('Auth', [
             'authorize' => [

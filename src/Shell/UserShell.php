@@ -19,7 +19,7 @@ class UserShell extends Shell
      */
     public function main()
     {
-        $config = Configure::read('Users');
+        $config = Configure::read('Users', []);
         $data = [];
         $fields = [
             $config['fields']['username'],

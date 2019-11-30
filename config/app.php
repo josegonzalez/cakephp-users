@@ -2,7 +2,7 @@
 use Cake\Core\Configure;
 use Cake\Utility\Hash;
 
-$defaults = Configure::read('Users');
+$defaults = Configure::read('Users', []);
 
 $values = $defaults + [
     // Request method type use to initiate authentication.

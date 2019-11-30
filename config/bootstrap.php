@@ -18,7 +18,7 @@ try {
 }
 
 EventManager::instance()->on('Server.buildMiddleware', function ($event, $middleware) {
-    $config = Configure::read('Users');
+    $config = Configure::read('Users', []);
     $socialConfig = $config['social'];
     if (empty($socialConfig['serviceConfig']['provider'])) {
         return;
