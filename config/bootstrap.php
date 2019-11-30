@@ -18,26 +18,28 @@ try {
 }
 
 EventManager::instance()->on('Server.buildMiddleware', function ($event, $middleware) {
-    $config = Configure::read('Users.social');
-    if (empty($config['serviceConfig']['provider'])) {
+    $config = Configure::read('Users');
+    $socialConfig = $config['social'];
+    if (empty($socialConfig['serviceConfig']['provider'])) {
         return;
     }
 
-    if (empty($config['getUserCallback'])) {
-        $config['getUserCallback'] = 'getUserFromSocialProfile';
+    if (empty($socialConfig['getUserCallback'])) {
+        $socialConfig['getUserCallback'] = 'getUserFromSocialProfile';
     }
 
     $userModel = Configure::read('Users.userModel');
     if (empty($userModel)) {
         throw new LogicException('Configure value Users.userModel is empty');
     }
-    $config['userModel'] = $userModel;
+    $socialConfig['userModel'] = $userModel;
 
-    $fields = Configure::read('Users.fields');
-    if (empty($fields['username']) || empty($fields['password'])) {
+    $socialConfig['loginAction'] = Router::url($config['loginAction']);
+
+    if (empty($config['fields']['username']) || empty($config['fields']['password'])) {
         throw new LogicException('Configure value Users.fields is invalid');
     }
-    $config['fields'] = $fields;
+    $socialConfig['fields'] = $config['fields'];
 
-    $middleware->add(new SocialAuthMiddleware($config));
+    $middleware->add(new SocialAuthMiddleware($socialConfig));
 });

@@ -5,6 +5,8 @@ use Cake\Utility\Hash;
 $defaults = Configure::read('Users');
 
 $values = $defaults + [
+    // Request method type use to initiate authentication.
+    'requestMethod' => 'POST',
     // User model.
     'userModel' => 'Users.Users',
     // Enable users the ability to upload avatars
