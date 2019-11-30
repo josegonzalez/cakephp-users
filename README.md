@@ -20,6 +20,28 @@ Load the plugin
 Plugin::load('Users', ['bootstrap' => true, 'routes' => true]);
 ```
 
+Create the `users` table with a migration similar to the following:
+
+```shell
+bin/cake bake migration create_users verified:boolean active:boolean email:string:unique:U_email password avatar avatar_dir created modified
+```
+
+If enabling password resets, you will also need to load the `Muffin/Tokenize` plugin and run it's migrations:
+
+```shell
+bin/cake plugin load Muffin/Tokenize --routes
+
+bin/cake migrations migrate --plugin Muffin/Tokenize
+```
+
+If enablign social authenticationn, you will also need to load the `ADmad/SocialAuth` pluginn and run it's migrations:
+
+```shell
+bin/cake plugin load ADmad/SocialAuth -b -r
+
+bin/cake migrations migrate -p ADmad/SocialAuth
+```
+
 And add the `AuthTrait` to your `AppController`:
 
 
